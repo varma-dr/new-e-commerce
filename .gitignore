@@ -1,0 +1,30 @@
+# Java-related
+*.class                # Compiled Java classes
+*.jar                  # Java archive files
+*.war                  # Web archive files
+*.log                  # Log files
+target/                # Build output directory
+
+# Node.js (MERN-related)
+node_modules/          # Node.js modules
+npm-debug.log*         # npm logs
+yarn-debug.log*        # yarn logs
+yarn-error.log*        # yarn error logs
+dist/                  # Distribution build folder
+build/                 # React build folder
+
+# Environment variables
+.env                   # Environment variables (not to be tracked)
+.env.*                 # Any environment files
+
+# IDE-related files (for VS Code, IntelliJ, etc.)
+.vscode/               # VS Code settings
+.idea/                 # IntelliJ IDEA settings
+*.iml                  # IntelliJ project files
+
+# OS-specific files
+.DS_Store              # macOS specific file
+Thumbs.db              # Windows specific file
+
+# Other files to ignore
+*.log                  # Log files
