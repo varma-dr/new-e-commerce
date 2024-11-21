@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["cutomer", "admin"],
-        default: "customer",
+        enum: ['customer', 'admin'],
+        default: 'customer',
     },
     Timestamp: {
         type: Date,
@@ -44,8 +44,6 @@ const userSchema = new mongoose.Schema({
     }
 }) 
 
-
-const User = mongoose.model("User", userSchema);
 
 // pre-save hook to hash password before saving to database
 
@@ -61,10 +59,12 @@ userSchema.pre("save", async function (next) {
     }
 });
 
+const UserModel = mongoose.model("User", userSchema);
+
 userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
 
 
-export default User;
+export default UserModel;

@@ -1,32 +1,40 @@
-import User from "../models/user.model.js";
-export const signup = async (req, res) => {
-    const { name, email, password } = req.body;
-    try {
-        const userExists = await User.findOne({ email });
-    
-    if (userExists) {
-        res.status(400);
-        throw new Error("User already exists");
-    }
-    const user = await User.create({
-        name,
-        email,
-        password,
+import UserModel from "../models/user.model.js";
+
+const generateTokens = (userId) => {
+    const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "15m",
     });
-    if (user) {
-        res.status(201).json({ 
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            token: generateToken(user._id),
+
+    const refreshToken = jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET, {
+        expiresIn: "7d",
+    });
+
+    return { accessToken, refreshToken };
+    
+};
+export const signup = async (req, res) => {
+    const { name, email, password, role = 'customer' } = req.body;
+    try {
+        const userExists = await UserModel.findOne({ email });
+    
+        if (userExists) {
+            return res.status(400).json({ message: "User already exists" });
+    }        
+        const user = await UserModel.create({ name, email, password, role: 'customer' });
+
+        //authentication
+
+        const {accessToken, refreshToken} = generateTokens(user._id);
+
+
+        res.status(201).json({
+            message: "User created successfully",
+            user: user 
         });
-    }
+    
     } catch (error) {
-        res.status(500).json({ message: error.message });
-        
-        
-    }
-}
+        res.status(500).json({ message: error.message }); }
+}       
 
 export const login = async (req, res) => {
     res.send("login  route called");
