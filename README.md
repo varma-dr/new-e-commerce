@@ -1,3 +1,3 @@
-Project - status 
+Status Update 
 
-November 20 - Start AFTER DB 
+21 Novemeber 2024 - Updated Tokens (access and refresh)
