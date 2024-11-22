@@ -1,6 +1,7 @@
 // const express = require("express");
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 // imported routes from auth.route.js
 import authRoutes from "./routes/auth.route.js";
@@ -12,6 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5002;
 
 app.use(express.json());
+app.use(cookieParser());
 
 // authentication 
 
